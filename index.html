@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102033">
+  <meta name="description" content="CECyTO Vial: aprende sobre señales de tránsito, reglamento y seguridad vial.">
+
+  <title>CECyTO Vial | Educación y seguridad vial</title>
+
+  <style>
+    :root {
+      --azul: #087fce;
+      --azul-oscuro: #003b75;
+      --marino: #101f32;
+      --turquesa: #40e0d0;
+      --celeste: #a6e5ff;
+      --fondo: #f2f7fc;
+      --blanco: #ffffff;
+      --texto: #263747;
+      --borde: #d9e6f1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* MENÚ SUPERIOR */
+
+    .barra-superior {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      min-height: 76px;
+      padding: 10px 5%;
+      background: var(--marino);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 3px 15px #00000025;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--blanco);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-imagen {
+      width: 53px;
+      height: 53px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid #40e0d066;
+    }
+
+    .marca-texto {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .marca-texto span {
+      color: var(--turquesa);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      padding: 10px 11px;
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 7px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible {
+      background: #ffffff20;
+      color: var(--turquesa);
+      outline: none;
+    }
+
+    .boton-menu {
+      display: none;
+      border: 1px solid #ffffff55;
+      background: transparent;
+      color: white;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    /* PORTADA CON IMAGEN DE FONDO */
+
+    .portada {
+      min-height: 650px;
+      min-height: min(760px, calc(100svh - 76px));
+
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 6%;
+      color: white;
+
+      /* AQUÍ CAMBIAS EL NOMBRE DE TU IMAGEN */
+      background-image:
+        linear-gradient(
+          110deg,
+          rgba(7, 24, 44, 0.72),
+          rgba(0, 48, 110, 0.48)
+        ),
+        url("fondo v.jpeg");
+
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #18344e;
+    }
+
+    .contenido-portada {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--turquesa);
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .portada h1 {
+      margin-bottom: 22px;
+      font-size: clamp(37px, 6vw, 66px);
+      line-height: 1.12;
+      text-shadow: 0 3px 15px #00000045;
+    }
+
+    .portada h1 span {
+      color: var(--celeste);
+    }
+
+    .descripcion-portada {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: clamp(16px, 2vw, 20px);
+      color: #f0f7ff;
+    }
+
+    .botones-portada {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 21px;
+      border: 2px solid transparent;
+      border-radius: 9px;
+      background: var(--turquesa);
+      color: #102536;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .boton:hover {
+      transform: translateY(-3px);
+      background: #77f1e5;
+    }
+
+    .boton-contorno {
+      background: transparent;
+      color: white;
+      border-color: #ffffffbd;
+    }
+
+    .boton-contorno:hover {
+      background: #ffffff20;
+      color: white;
+    }
+
+    /* SECCIONES */
+
+    main {
+      width: 100%;
+    }
+
+    .seccion {
+      width: min(1160px, 100%);
+      margin: auto;
+      padding: 75px 25px;
+    }
+
+    .encabezado-seccion {
+      max-width: 750px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .subtitulo {
+      margin-bottom: 7px;
+      color: var(--azul);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .encabezado-seccion h2 {
+      margin-bottom: 12px;
+      color: var(--azul-oscuro);
+      font-size: clamp(28px, 4vw, 39px);
+      line-height: 1.2;
+    }
+
+    .encabezado-seccion p {
+      color: #526578;
+      font-size: 16px;
+    }
+
+    /* TARJETAS */
+
+    .rejilla {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .tarjeta {
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 15px;
+      box-shadow: 0 7px 24px #173c5b0d;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px #173c5b18;
+    }
+
+    .imagen-tarjeta {
+      display: block;
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #d7efff, #a7d9f5);
+      color: #173b5c;
+      text-align: center;
+    }
+
+    .tarjeta-contenido {
+      padding: 23px;
+    }
+
+    .numero-tarjeta {
+      display: inline-block;
+      margin-bottom: 9px;
+      color: var(--azul);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .tarjeta h3 {
+      margin-bottom: 10px;
+      color: var(--azul-oscuro);
+      font-size: 21px;
+    }
+
+    .tarjeta p {
+      min-height: 75px;
+      margin-bottom: 18px;
+      color: #536577;
+      font-size: 15px;
+    }
+
+    .enlace-tarjeta {
+      display: inline-block;
+      color: #006fba;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .enlace-tarjeta:hover {
+      color: #003b75;
+      text-decoration: underline;
+    }
+
+    /* RECORDATORIO */
+
+    .recordatorio {
+      padding: 38px 25px;
+      background: linear-gradient(120deg, #e1f4ff, #e5fcfa);
+      border-top: 1px solid #d4edf7;
+      border-bottom: 1px solid #d4edf7;
+    }
+
+    .recordatorio-interior {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .recordatorio h2 {
+      margin-bottom: 8px;
+      color: var(--azul-oscuro);
+      font-size: 25px;
+    }
+
+    .recordatorio p {
+      max-width: 680px;
+    }
+
+    /* PIE DE PÁGINA */
+
+    footer {
+      padding: 35px 20px;
+      background: #0b1726;
+      color: #e8f1fa;
+      text-align: center;
+    }
+
+    .logo-pie {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .logo-pie img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .logo-pie strong {
+      font-size: 20px;
+    }
+
+    .logo-pie span {
+      color: var(--turquesa);
+    }
+
+    .enlaces-pie {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 18px 0;
+    }
+
+    .enlaces-pie a {
+      color: var(--celeste);
+      text-decoration: none;
+    }
+
+    .enlaces-pie a:hover {
+      text-decoration: underline;
+    }
+
+    .derechos {
+      margin-top: 15px;
+      color: #b9c7d6;
+      font-size: 13px;
+    }
+
+    /* ADAPTACIÓN A CELULARES */
+
+    @media (max-width: 1000px) {
+      .barra-superior {
+        padding: 10px 4%;
+      }
+
+      .boton-menu {
+        display: block;
+      }
+
+      .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 12px 5% 18px;
+        background: var(--marino);
+        border-top: 1px solid #ffffff20;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .menu.abierto {
+        display: flex;
+      }
+
+      .menu a {
+        padding: 12px;
+        text-align: center;
+      }
+
+      .rejilla {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .barra-superior {
+        min-height: 70px;
+      }
+
+      .logo-imagen {
+        width: 45px;
+        height: 45px;
+      }
+
+      .marca-texto {
+        font-size: 19px;
+      }
+
+      .portada {
+        min-height: 590px;
+        padding: 65px 20px;
+      }
+
+      .etiqueta {
+        font-size: 11px;
+        letter-spacing: 2px;
+      }
+
+      .portada h1 {
+        font-size: clamp(35px, 10vw, 48px);
+      }
+
+      .botones-portada {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 320px;
+        margin: 28px auto 0;
+      }
+
+      .seccion {
+        padding: 52px 17px;
+      }
+
+      .rejilla {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .imagen-tarjeta {
+        height: 220px;
+      }
+
+      .tarjeta p {
+        min-height: 0;
+      }
+
+      .recordatorio-interior {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENÚ PRINCIPAL -->
+  <header class="barra-superior">
+
+    <a class="marca" href="index.html" aria-label="CECyTO Vial, inicio">
+      <img
+        class="logo-imagen"
+        src="logo cecyto.jpeg"
+        alt="Logo de CECyTO Vial"
+      >
+
+      <span class="marca-texto">
+        CECyTO <span>Vial</span>
+      </span>
+    </a>
+
+    <button
+      class="boton-menu"
+      id="botonMenu"
+      type="button"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="menuPrincipal"
+    >
+      ☰
+    </button>
+
+    <nav class="menu" id="menuPrincipal" aria-label="Menú principal">
+      <a href="index.html">Inicio</a>
+      <a href="senales.html">Señales</a>
+      <a href="reglamento.html">Reglamento</a>
+      <a href="infracciones.html">Infracciones</a>
+      <a href="galeria.html">Galería</a>
+      <a href="cuestionario.html">Cuestionario</a>
+      <a href="chatbot.html">Chatbot</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+  </header>
+
+  <!-- PORTADA -->
+  <section class="portada" id="inicio">
+
+    <div class="contenido-portada">
+
+      <span class="etiqueta">Educación y seguridad vial</span>
+
+      <h1>
+        Bienvenido a <span>CECyTO Vial</span>
+      </h1>
+
+      <p class="descripcion-portada">
+        Aprende a reconocer las señales de tránsito, conoce las reglas
+        de circulación y descubre cómo construir calles más seguras
+        para todos.
+      </p>
+
+      <div class="botones-portada">
+        <a href="#explorar" class="boton">Explorar el menú</a>
+
+        <a href="galeria.html" class="boton boton-contorno">
+          Ver galería
+        </a>
+
+        <a href="cuestionario.html" class="boton boton-contorno">
+          Ponerme a prueba
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <main>
+
+    <!-- SECCIONES PRINCIPALES -->
+    <section class="seccion" id="explorar">
+
+      <div class="encabezado-seccion">
+        <p class="subtitulo">Descubre y aprende</p>
+
+        <h2>Explora CECyTO Vial</h2>
+
+        <p>
+          Selecciona una sección para consultar información,
+          aprender con ejemplos y poner a prueba tus conocimientos.
+        </p>
+      </div>
+
+      <div class="rejilla">
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="señales.jpeg"
+            alt="Señales de tránsito"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">01 · APRENDE</span>
+            <h3>Señales de tránsito</h3>
+
+            <p>
+              Conoce las señales preventivas, restrictivas e
+              informativas y aprende qué significa cada una.
+            </p>
+
+            <a class="enlace-tarjeta" href="senales.html">
+              Explorar señales →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="r - vial.jpeg"
+            alt="Reglamento vial"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">02 · CONOCE</span>
+            <h3>Reglamento vial</h3>
+
+            <p>
+              Consulta información educativa sobre las reglas
+              de circulación y la convivencia vial.
+            </p>
+
+            <a class="enlace-tarjeta" href="reglamento.html">
+              Consultar reglamento →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="infra.jpeg"
+            alt="Infracciones de tránsito"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">03 · PREVENCIÓN</span>
+            <h3>Infracciones y multas</h3>
+
+            <p>
+              Aprende sobre conductas de riesgo, infracciones
+              comunes y sus posibles consecuencias.
+            </p>
+
+            <a class="enlace-tarjeta" href="infracciones.html">
+              Conocer más →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="gal.jpeg"
+            alt="Galería de educación vial"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">04 · EXPLORA</span>
+            <h3>Galería multimedia</h3>
+
+            <p>
+              Encuentra fotografías, ilustraciones, señales
+              y material visual relacionado con la seguridad vial.
+            </p>
+
+            <a class="enlace-tarjeta" href="galeria.html">
+              Abrir galería →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="cuesti.jpeg"
+            alt="Cuestionario de seguridad vial"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">05 · PRACTICA</span>
+            <h3>Cuestionario vial</h3>
+
+            <p>
+              Responde preguntas sobre tránsito y comprueba
+              cuánto has aprendido.
+            </p>
+
+            <a class="enlace-tarjeta" href="cuestionario.html">
+              Comenzar cuestionario →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img
+            class="imagen-tarjeta"
+            src="chat.jpeg"
+            alt="Asistente virtual de educación vial"
+            loading="lazy"
+          >
+
+          <div class="tarjeta-contenido">
+            <span class="numero-tarjeta">06 · PREGUNTA</span>
+            <h3>Asistente vial</h3>
+
+            <p>
+              Consulta respuestas educativas a preguntas frecuentes
+              sobre señales, reglas y seguridad vial.
+            </p>
+
+            <a class="enlace-tarjeta" href="chatbot.html">
+              Hablar con el asistente →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- RECORDATORIO DE SEGURIDAD -->
+    <section class="recordatorio">
+
+      <div class="recordatorio-interior">
+
+        <div>
+          <h2>La seguridad vial comienza contigo.</h2>
+
+          <p>
+            Respeta las señales, evita las distracciones y cuida
+            a peatones, ciclistas, pasajeros y conductores.
+            Cada decisión responsable puede prevenir un accidente.
+          </p>
+        </div>
+
+        <a href="reglamento.html" class="boton">
+          Aprende más
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+
+    <div class="logo-pie">
+      <img
+        src="logo cecyto.jpeg"
+        alt="Logo de CECyTO Vial"
+        loading="lazy"
+      >
+
+      <strong>CECyTO <span>Vial</span></strong>
+    </div>
+
+    <p>Proyecto educativo de seguridad vial.</p>
+    <p>Aprender las reglas también salva vidas.</p>
+
+    <nav class="enlaces-pie" aria-label="Enlaces del pie de página">
+      <a href="index.html">Inicio</a>
+      <a href="galeria.html">Galería</a>
+      <a href="cuestionario.html">Cuestionario</a>
+      <a href="chatbot.html">Asistente vial</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <p class="derechos">
+      © 2026 CECyTO Vial · Proyecto con fines educativos.
+      Consulta las fuentes oficiales para conocer la normativa aplicable.
+    </p>
+
+  </footer>
+
+  <!-- MENÚ PARA CELULARES -->
+  <script>
+    const botonMenu = document.getElementById("botonMenu");
+    const menuPrincipal = document.getElementById("menuPrincipal");
+
+    botonMenu.addEventListener("click", function () {
+      const estaAbierto = menuPrincipal.classList.toggle("abierto");
+
+      botonMenu.setAttribute("aria-expanded", estaAbierto);
+
+      botonMenu.setAttribute(
+        "aria-label",
+        estaAbierto
+          ? "Cerrar menú de navegación"
+          : "Abrir menú de navegación"
+      );
+
+      botonMenu.textContent = estaAbierto ? "✕" : "☰";
+    });
+
+    menuPrincipal.querySelectorAll("a").forEach(function (enlace) {
+      enlace.addEventListener("click", function () {
+        menuPrincipal.classList.remove("abierto");
+        botonMenu.setAttribute("aria-expanded", "false");
+        botonMenu.setAttribute("aria-label", "Abrir menú de navegación");
+        botonMenu.textContent = "☰";
+      });
+    });
+  </script>
+
+</body>
+</html> 

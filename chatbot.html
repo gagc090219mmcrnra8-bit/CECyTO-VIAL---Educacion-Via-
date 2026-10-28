@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot | CECyTO Vial</title>
+
+<style>
+:root {
+    --azul: #102b50;
+    --azul-claro: #174a7e;
+    --turquesa: #28d7d0;
+    --fondo: #eef4fa;
+    --blanco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--fondo);
+    color: #243447;
+}
+
+header {
+    background: var(--azul);
+    color: white;
+    padding: 15px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 53px;
+    height: 53px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: white;
+    flex-shrink: 0;
+}
+
+.logo-texto span {
+    color: var(--turquesa);
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--turquesa);
+}
+
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro h1 {
+    color: var(--azul);
+    margin-bottom: 10px;
+}
+
+.intro p {
+    line-height: 1.6;
+}
+
+.contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #00000012;
+}
+
+.panel h2 {
+    color: var(--azul);
+    margin-bottom: 15px;
+}
+
+#buscador {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+#preguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 440px;
+    overflow-y: auto;
+}
+
+.pregunta {
+    text-align: left;
+    padding: 11px;
+    border: 1px solid #dce5ef;
+    border-radius: 8px;
+    background: #f7faff;
+    color: var(--azul);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.pregunta:hover {
+    background: #dffaf8;
+    border-color: var(--turquesa);
+}
+
+#chat {
+    height: 390px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f5f8fc;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mensaje {
+    padding: 12px;
+    border-radius: 12px;
+    max-width: 90%;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.bot {
+    background: #dffaf8;
+    align-self: flex-start;
+}
+
+.usuario {
+    background: #dce8fa;
+    align-self: flex-end;
+}
+
+.etiqueta {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: var(--azul);
+}
+
+#formulario {
+    display: flex;
+    gap: 8px;
+}
+
+#entrada {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+button.enviar, button.limpiar {
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: var(--azul);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button.enviar:hover, button.limpiar:hover {
+    background: var(--azul-claro);
+}
+
+.limpiar {
+    margin-top: 10px;
+}
+
+.nota {
+    font-size: 13px;
+    color: #536579;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    background: var(--azul);
+    color: white;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 750px) {
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .contenedor {
+        grid-template-columns: 1fr;
+    }
+
+    #preguntas {
+        max-height: 300px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="index.html">
+        <img src="logo cecyto.jpeg" alt="Logo de CECyTO Vial">
+        <span class="logo-texto">CECyTO <span>Vial</span></span>
+    </a>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="senales.html">Señales</a>
+        <a href="reglamento.html">Reglamento</a>
+        <a href="infracciones.html">Infracciones</a>
+        <a href="galeria.html">Galería</a>
+        <a href="cuestionario.html">Cuestionario</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+</header>
+
+<main>
+    <section class="intro">
+        <h1>🤖 Chatbot de Educación Vial</h1>
+        <p>¡Hola! Soy el asistente virtual de CECyTO Vial.
+        Pregúntame sobre señales, reglas de tránsito y seguridad vial.</p>
+    </section>
+
+    <div class="contenedor">
+
+        <section class="panel">
+            <h2>📚 50 preguntas</h2>
+            <input type="search" id="buscador"
+                   placeholder="Buscar una pregunta..."
+                   aria-label="Buscar preguntas">
+
+            <div id="preguntas"></div>
+        </section>
+
+        <section class="panel">
+            <h2>💬 Conversación</h2>
+
+            <div id="chat" aria-live="polite">
+                <div class="mensaje bot">
+                    <span class="etiqueta">CECyTO Vial</span>
+                    ¡Bienvenido! Selecciona una pregunta de la lista
+                    o escribe palabras como "semáforo", "peatón" o "casco".
+                </div>
+            </div>
+
+            <form id="formulario">
+                <input id="entrada" type="text"
+                       placeholder="Escribe tu pregunta..."
+                       autocomplete="off"
+                       aria-label="Escribe tu pregunta"
+                       required>
+                <button class="enviar" type="submit">Enviar</button>
+            </form>
+
+            <button class="limpiar" type="button" id="limpiar">
+                Limpiar conversación
+            </button>
+
+            <p class="nota">
+                Este chatbot responde con información preparada sobre
+                educación vial. Si no reconoce una pregunta, te mostrará
+                temas que puedes consultar.
+            </p>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 CECyTO Vial | La seguridad vial es responsabilidad de todos.</p>
+</footer>
+
+<script>
+const datos = [
+["¿Qué es la educación vial?",
+"La educación vial enseña las reglas, señales y conductas necesarias para desplazarnos de manera segura."],
+
+["¿Qué es una señal de tránsito?",
+"Es un elemento que informa, advierte o indica obligaciones a los usuarios de la vía."],
+
+["¿Qué significa la luz roja del semáforo?",
+"Indica detenerse antes de la línea de alto o del cruce peatonal."],
+
+["¿Qué significa la luz amarilla?",
+"Advierte que el semáforo cambiará. Debes detenerte si puedes hacerlo de forma segura."],
+
+["¿Qué significa la luz verde?",
+"Permite avanzar cuando la vía está libre y es seguro hacerlo."],
+
+["¿Qué debe hacer un peatón antes de cruzar?",
+"Mirar a ambos lados, usar el cruce peatonal cuando exista y respetar las señales."],
+
+["¿Por dónde debe caminar un peatón?",
+"Preferentemente por las banquetas o zonas peatonales."],
+
+["¿Qué es un paso peatonal?",
+"Es una zona señalizada o designada para que los peatones crucen la calle."],
+
+["¿Qué es una ciclovía?",
+"Es un espacio destinado a la circulación de bicicletas, según la señalización correspondiente."],
+
+["¿Para qué sirve el cinturón de seguridad?",
+"Ayuda a mantener a los ocupantes en su lugar y reduce el riesgo de lesiones en un choque."],
+
+["¿Por qué se debe usar casco en motocicleta?",
+"Porque protege la cabeza y puede disminuir la gravedad de las lesiones."],
+
+["¿Se debe usar el celular mientras se conduce?",
+"No. Distrae la atención y aumenta el riesgo de un accidente."],
+
+["¿Qué es la conducción preventiva?",
+"Es conducir anticipando posibles riesgos y actuando para evitar accidentes."],
+
+["¿Qué es la distancia de seguridad?",
+"Es el espacio suficiente entre vehículos para poder reaccionar y frenar a tiempo."],
+
+["¿Qué se debe hacer antes de cambiar de carril?",
+"Revisar espejos y puntos ciegos, señalizar y cambiar solo cuando sea seguro."],
+
+["¿Para qué sirven las direccionales?",
+"Para avisar a los demás usuarios que se va a girar o cambiar de carril."],
+
+["¿Qué es un punto ciego?",
+"Es una zona alrededor del vehículo que el conductor no puede ver directamente con facilidad."],
+
+["¿Qué se debe hacer al acercarse a una escuela?",
+"Reducir la velocidad, prestar atención y estar preparado para la presencia de niños."],
+
+["¿Qué hacer al escuchar una sirena de emergencia?",
+"Facilitar el paso del vehículo de emergencia conforme a las reglas locales y sin realizar maniobras peligrosas."],
+
+["¿Qué es el límite de velocidad?",
+"Es la velocidad máxima o mínima establecida para una vía, según la señalización y las normas aplicables."],
+
+["¿Por qué es peligroso conducir a exceso de velocidad?",
+"Porque reduce el tiempo de reacción y aumenta la distancia de frenado y la gravedad de los choques."],
+
+["¿Qué es una infracción de tránsito?",
+"Es el incumplimiento de una norma de tránsito que puede generar una sanción."],
+
+["¿Qué documentos puede necesitar un conductor?",
+"Los que exijan las normas locales, como licencia vigente y documentos del vehículo."],
+
+["¿Qué debe hacerse antes de arrancar un automóvil?",
+"Ajustar asiento y espejos, colocarse el cinturón y comprobar que sea seguro iniciar la marcha."],
+
+["¿Qué es una glorieta?",
+"Es una intersección circular donde se debe respetar la señalización y ceder el paso según corresponda."],
+
+["¿Qué significa una señal de alto?",
+"Ordena detener completamente el vehículo y continuar solo cuando sea seguro."],
+
+["¿Qué indican generalmente las señales preventivas?",
+"Advierten sobre peligros o condiciones que requieren precaución."],
+
+["¿Qué indican las señales restrictivas?",
+"Comunican prohibiciones, límites u obligaciones de tránsito."],
+
+["¿Qué indican las señales informativas?",
+"Orientan sobre destinos, servicios, rutas o lugares de interés."],
+
+["¿Qué hacer si llueve mientras conduces?",
+"Reducir la velocidad, aumentar la distancia de seguridad y evitar frenadas bruscas."],
+
+["¿Cómo se debe conducir de noche?",
+"Con luces adecuadas, velocidad prudente y atención a peatones, ciclistas y obstáculos."],
+
+["¿Qué es la fatiga al conducir?",
+"Es el cansancio que disminuye la atención y la capacidad de reaccionar."],
+
+["¿Es seguro conducir después de consumir alcohol?",
+"No. El alcohol afecta los reflejos, el juicio y la coordinación. Elige transporte seguro."],
+
+["¿Qué hacer si ocurre un accidente?",
+"Proteger la zona sin exponerte a peligro, solicitar ayuda de emergencia y seguir las indicaciones de las autoridades."],
+
+["¿Qué es la movilidad sustentable?",
+"Es desplazarse procurando reducir el impacto ambiental, por ejemplo caminando, en bicicleta o usando transporte público."],
+
+["¿Qué debe hacer un ciclista al circular?",
+"Respetar las señales, hacerse visible y usar los espacios permitidos según las reglas locales."],
+
+["¿Qué es el transporte público?",
+"Es el servicio de transporte disponible para la población mediante rutas y condiciones establecidas."],
+
+["¿Por qué es importante respetar las señales?",
+"Porque organizan la circulación, comunican riesgos y ayudan a prevenir accidentes."],
+
+["¿Qué significa ceder el paso?",
+"Permitir que otro usuario avance primero cuando las reglas o las condiciones de seguridad así lo indiquen."],
+
+["¿Qué es un cruce de caminos?",
+"Es el lugar donde se encuentran o intersectan dos o más vías."],
+
+["¿Qué debe hacer un conductor al ver una ambulancia?",
+"Facilitar su paso de forma segura y conforme a las normas de tránsito."],
+
+["¿Cómo se puede evitar un accidente vial?",
+"Respetando las señales, manteniendo la atención, controlando la velocidad y evitando distracciones."],
+
+["¿Qué es la seguridad vial?",
+"Es el conjunto de medidas y conductas que buscan prevenir lesiones y muertes durante los desplazamientos."],
+
+["¿Por qué no se debe tirar basura desde un vehículo?",
+"Porque contamina, puede provocar accidentes y perjudica el entorno."],
+
+["¿Qué debe hacer un pasajero para viajar seguro?",
+"Usar el cinturón cuando esté disponible, permanecer sentado y no distraer al conductor."],
+
+["¿Qué es el derecho de vía?",
+"Es la prioridad de paso que establecen las normas y señales para determinados usuarios o vehículos."],
+
+["¿Qué hacer si un semáforo no funciona?",
+"Reducir la velocidad, extremar precauciones y obedecer las indicaciones de la autoridad y las reglas locales."],
+
+["¿Por qué es importante revisar un vehículo?",
+"Porque comprobar frenos, luces, neumáticos y otros elementos ayuda a detectar fallas que pueden causar accidentes."],
+
+["¿Qué es un accidente de tránsito?",
+"Es un suceso relacionado con la circulación que puede causar daños materiales, lesiones o muertes."],
+
+["¿Cuál es la responsabilidad de todos en la vía pública?",
+"Respetar las normas, cuidar a los demás y actuar con precaución para que todos puedan desplazarse seguros."]
+];
+
+const lista = document.getElementById("preguntas");
+const chat = document.getElementById("chat");
+const entrada = document.getElementById("entrada");
+const buscador = document.getElementById("buscador");
+
+function mostrarPreguntas(filtro = "") {
+    lista.innerHTML = "";
+    const texto = filtro.toLowerCase().trim();
+
+    datos.forEach((dato, indice) => {
+        if (dato[0].toLowerCase().includes(texto)) {
+            const boton = document.createElement("button");
+            boton.className = "pregunta";
+            boton.type = "button";
+            boton.textContent = (indice + 1) + ". " + dato[0];
+            boton.addEventListener("click", () => responder(dato[0], dato[1]));
+            lista.appendChild(boton);
+        }
+    });
+
+    if (!lista.children.length) {
+        lista.textContent = "No se encontraron preguntas.";
+    }
+}
+
+function agregarMensaje(texto, tipo) {
+    const mensaje = document.createElement("div");
+    mensaje.className = "mensaje " + tipo;
+
+    const etiqueta = document.createElement("span");
+    etiqueta.className = "etiqueta";
+    etiqueta.textContent = tipo === "usuario" ? "Tú" : "CECyTO Vial";
+
+    const contenido = document.createElement("div");
+    contenido.textContent = texto;
+
+    mensaje.appendChild(etiqueta);
+    mensaje.appendChild(contenido);
+    chat.appendChild(mensaje);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function responder(pregunta, respuesta) {
+    agregarMensaje(pregunta, "usuario");
+    agregarMensaje(respuesta, "bot");
+}
+
+function buscarRespuesta(texto) {
+    const consulta = texto.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    let mejor = null;
+    let mejorPuntaje = 0;
+
+    datos.forEach(dato => {
+        const pregunta = dato[0].toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+        const palabras = pregunta.split(/[^a-z0-9]+/);
+        let puntaje = 0;
+
+        palabras.forEach(palabra => {
+            if (palabra.length > 3 && consulta.includes(palabra)) {
+                puntaje++;
+            }
+        });
+
+        if (consulta.includes(pregunta)) {
+            puntaje += 5;
+        }
+
+        if (puntaje > mejorPuntaje) {
+            mejorPuntaje = puntaje;
+            mejor = dato;
+        }
+    });
+
+    if (mejor && mejorPuntaje > 0) {
+        return mejor[1];
+    }
+
+    return "No encontré una respuesta exacta. Puedes elegir una de las 50 preguntas de la lista o intentar escribir otra palabra, como semáforo, peatón, casco o velocidad.";
+}
+
+document.getElementById("formulario").addEventListener("submit", function(evento) {
+    evento.preventDefault();
+
+    const texto = entrada.value.trim();
+    if (!texto) return;
+
+    agregarMensaje(texto, "usuario");
+    agregarMensaje(buscarRespuesta(texto), "bot");
+    entrada.value = "";
+    entrada.focus();
+});
+
+document.getElementById("limpiar").addEventListener("click", function() {
+    chat.innerHTML = "";
+    agregarMensaje("¡Hola de nuevo! Elige una pregunta de la lista o escribe tu duda sobre educación vial.", "bot");
+});
+
+buscador.addEventListener("input", function() {
+    mostrarPreguntas(buscador.value);
+});
+
+mostrarPreguntas();
+</script>
+
+</body>
+</html>

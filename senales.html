@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CECyTO Vial | Señales</title>
+
+<style>
+:root {
+  --azul:#007FFF;
+  --marino:#00308F;
+  --oscuro:#102A43;
+  --turquesa:#40E0D0;
+  --fondo:#F1F7FC;
+  --blanco:#FFFFFF;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fondo);
+  color:#203040;
+  line-height:1.6;
+}
+
+/* ENCABEZADO Y LOGO */
+header {
+  background:var(--oscuro);
+  color:white;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:22px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+  flex-shrink:0;
+}
+
+.logo img {
+  width:53px;
+  height:53px;
+  object-fit:contain;
+  border-radius:50%;
+  border:2px solid var(--turquesa);
+  background:var(--oscuro);
+}
+
+.logo-texto span { color:var(--turquesa); }
+
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+nav a {
+  color:white;
+  text-decoration:none;
+  padding:8px;
+  border-radius:7px;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  background:#ffffff25;
+  color:var(--turquesa);
+}
+
+/* CONTENIDO */
+main {
+  max-width:1100px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+h1,h2,h3 { color:var(--marino); }
+
+.intro {
+  background:linear-gradient(120deg,#00308F,#007FFF);
+  padding:35px;
+  border-radius:18px;
+  color:white;
+  margin-bottom:25px;
+}
+
+.intro h1 {
+  color:white;
+  font-size:clamp(30px,5vw,45px);
+  margin-bottom:10px;
+}
+
+.intro p { max-width:700px; }
+
+.filtros {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:20px 0;
+}
+
+input[type="search"] {
+  flex:1;
+  min-width:190px;
+  padding:12px;
+  border:1px solid #b9cbd8;
+  border-radius:9px;
+  font-size:16px;
+}
+
+button {
+  padding:11px 15px;
+  border:0;
+  border-radius:8px;
+  background:var(--marino);
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+}
+
+button:hover { background:var(--azul); }
+
+button.activo {
+  background:#008080;
+  color:white;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+.card {
+  background:white;
+  border:1px solid #d8e6f0;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 5px 15px #00308f0d;
+}
+
+.card img {
+  display:block;
+  width:100%;
+  height:190px;
+  object-fit:contain;
+  background:#e8f4ff;
+  padding:12px;
+}
+
+.card-body { padding:18px; }
+
+.tipo {
+  display:inline-block;
+  background:#e3f6f4;
+  color:#006a69;
+  padding:4px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.card p { margin:9px 0; }
+
+.aviso {
+  margin-top:25px;
+  padding:16px;
+  background:#e2f2ff;
+  border-left:4px solid var(--azul);
+  border-radius:8px;
+}
+
+footer {
+  text-align:center;
+  background:var(--oscuro);
+  color:white;
+  padding:25px;
+}
+
+footer a { color:var(--turquesa); }
+
+@media(max-width:850px) {
+  header { justify-content:center; }
+  nav { justify-content:center; }
+}
+
+@media(max-width:600px) {
+  .logo img {
+    width:45px;
+    height:45px;
+  }
+
+  .intro { padding:25px 20px; }
+  main { padding:25px 14px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <img src="logo cecyto.jpeg" alt="Logo de CECyTO Vial">
+    <span class="logo-texto">CECyTO <span>Vial</span></span>
+  </a>
+
+  <nav aria-label="Menú principal">
+    <a href="index.html">Inicio</a>
+    <a href="senales.html" aria-current="page">Señales</a>
+    <a href="reglamento.html">Reglamento</a>
+    <a href="infracciones.html">Infracciones</a>
+    <a href="galeria.html">Galería</a>
+    <a href="cuestionario.html">Cuestionario</a>
+    <a href="chatbot.html">Chatbot</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <p>APRENDE A IDENTIFICARLAS</p>
+    <h1>Señales de tránsito</h1>
+    <p>Explora las categorías, busca una señal y conoce su función.</p>
+  </section>
+
+  <div class="filtros">
+    <input type="search" id="buscar"
+      placeholder="Buscar señal, por ejemplo: alto..."
+      aria-label="Buscar señales">
+
+    <button class="activo" data-tipo="Todas">Todas</button>
+    <button data-tipo="Restrictiva">Restrictivas</button>
+    <button data-tipo="Preventiva">Preventivas</button>
+    <button data-tipo="Informativa">Informativas</button>
+  </div>
+
+  <p id="contador" aria-live="polite"></p>
+  <section class="grid" id="lista"></section>
+
+  <div class="aviso">
+    <strong>Consejo:</strong> verifica el significado de las señales
+    con la normativa vial aplicable a tu localidad.
+  </div>
+</main>
+
+<footer>
+  <p><strong>CECyTO Vial</strong> · Educación vial</p>
+  <p><a href="index.html">Volver al inicio</a></p>
+</footer>
+
+<script>
+const senales = [
+  {
+    nombre:"ALTO",
+    tipo:"Restrictiva",
+    descripcion:"Debes detener completamente la marcha y continuar solo cuando sea seguro.",
+    imagen:"alto.jpeg"
+  },
+  {
+    nombre:"Límite de velocidad",
+    tipo:"Restrictiva",
+    descripcion:"Indica la velocidad máxima establecida para ese tramo.",
+    imagen:"llimite.jpeg"
+  },
+  {
+    nombre:"No estacionarse",
+    tipo:"Restrictiva",
+    descripcion:"Indica que está prohibido estacionarse en la zona señalada.",
+    imagen:"no estacionarse.jpeg"
+  },
+  {
+    nombre:"Curva peligrosa",
+    tipo:"Preventiva",
+    descripcion:"Advierte de una curva que requiere mayor precaución.",
+    imagen:"curva peligrosa.jpeg"
+  },
+  {
+    nombre:"Cruce peatonal",
+    tipo:"Preventiva",
+    descripcion:"Advierte sobre una zona de cruce de peatones.",
+    imagen:"cruce peatonal.jpeg"
+  },
+  {
+    nombre:"Zona escolar",
+    tipo:"Preventiva",
+    descripcion:"Advierte de la proximidad de una zona escolar.",
+    imagen:"escolar.jpeg"
+  },
+  {
+    nombre:"Hospital",
+    tipo:"Informativa",
+    descripcion:"Indica la ubicación o proximidad de servicios hospitalarios.",
+    imagen:"hospital.jpeg"
+  },
+  {
+    nombre:"Estacionamiento",
+    tipo:"Informativa",
+    descripcion:"Identifica un lugar destinado al estacionamiento.",
+    imagen:"estacionamiento.jpeg"
+  },
+  {
+    nombre:"Destino o dirección",
+    tipo:"Informativa",
+    descripcion:"Ayuda a orientarte hacia un destino.",
+    imagen:""
+  }
+];
+
+let categoria = "Todas";
+
+function dibujar() {
+  const texto = document.getElementById("buscar").value
+    .trim().toLowerCase();
+
+  const filtradas = senales.filter(s =>
+    (categoria === "Todas" || s.tipo === categoria) &&
+    (s.nombre + " " + s.tipo + " " + s.descripcion)
+      .toLowerCase().includes(texto)
+  );
+
+  document.getElementById("contador").textContent =
+    filtradas.length + " señal(es) encontrada(s).";
+
+  const lista = document.getElementById("lista");
+
+  if (!filtradas.length) {
+    lista.innerHTML = "<p>No se encontraron señales.</p>";
+    return;
+  }
+
+  lista.innerHTML = filtradas.map(s => `
+    <article class="card">
+      <img src="${s.imagen}" alt="${s.nombre}"
+        onerror="this.onerror=null;this.removeAttribute('src');this.alt='Imagen pendiente: ${s.nombre}'">
+      <div class="card-body">
+        <span class="tipo">${s.tipo}</span>
+        <h3>${s.nombre}</h3>
+        <p>${s.descripcion}</p>
+      </div>
+    </article>
+  `).join("");
+}
+
+document.getElementById("buscar")
+  .addEventListener("input", dibujar);
+
+document.querySelectorAll("[data-tipo]").forEach(boton => {
+  boton.addEventListener("click", () => {
+    categoria = boton.dataset.tipo;
+
+    document.querySelectorAll("[data-tipo]").forEach(b => {
+      b.classList.toggle("activo", b === boton);
+    });
+
+    dibujar();
+  });
+});
+
+dibujar();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CECyTO Vial | Infracciones</title>
+
+<style>
+:root{
+  --azul:#007FFF;
+  --marino:#00308F;
+  --oscuro:#102A43;
+  --turquesa:#40E0D0;
+  --fondo:#F1F7FC;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fondo);
+  color:#203040;
+  line-height:1.6;
+}
+
+header{
+  background:var(--oscuro);
+  color:white;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* LOGO CECyTO VIAL */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+}
+
+.logo img{
+  width:53px;
+  height:53px;
+  object-fit:contain;
+  border-radius:50%;
+  background:white;
+  flex-shrink:0;
+}
+
+.logo-texto{
+  color:white;
+}
+
+.logo-texto span{
+  color:var(--turquesa);
+}
+
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  padding:8px;
+  border-radius:7px;
+}
+
+nav a:hover{
+  background:#ffffff25;
+}
+
+main{
+  max-width:1050px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+h1,h2,h3{
+  color:var(--marino);
+}
+
+.hero{
+  padding:30px;
+  background:linear-gradient(120deg,#00308F,#007FFF);
+  color:white;
+  border-radius:16px;
+}
+
+.hero h1{
+  color:white;
+  font-size:clamp(30px,5vw,43px);
+}
+
+.filtros{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:22px 0;
+}
+
+input[type=search]{
+  flex:1;
+  min-width:190px;
+  padding:12px;
+  border:1px solid #b9cbd8;
+  border-radius:8px;
+  font-size:16px;
+}
+
+button{
+  background:var(--marino);
+  color:white;
+  border:0;
+  padding:11px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:hover,
+button.activo{
+  background:var(--azul);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border:1px solid #d8e6f0;
+  border-radius:13px;
+  padding:20px;
+  box-shadow:0 5px 15px #00308f0a;
+}
+
+.etiqueta{
+  display:inline-block;
+  background:#e4f5ff;
+  color:#00308F;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.card h3{
+  margin:12px 0;
+}
+
+.card p{
+  margin:9px 0;
+}
+
+.detalle{
+  margin-top:25px;
+  background:white;
+  border:1px solid #d8e6f0;
+  border-radius:14px;
+  padding:22px;
+}
+
+.nota{
+  margin-top:20px;
+  background:#fff3d7;
+  padding:16px;
+  border-left:5px solid #E5A12B;
+  border-radius:8px;
+}
+
+footer{
+  text-align:center;
+  background:var(--oscuro);
+  color:white;
+  padding:25px;
+}
+
+footer a{
+  color:var(--turquesa);
+}
+
+@media(max-width:600px){
+  header{justify-content:center}
+  .logo{justify-content:center}
+  nav{justify-content:center}
+  main{padding:25px 14px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <img src="logo cecyto.jpeg" alt="Logo de CECyTO Vial">
+    <span class="logo-texto">CECyTO <span>Vial</span></span>
+  </a>
+
+  <nav aria-label="Menú principal">
+    <a href="index.html">Inicio</a>
+    <a href="senales.html">Señales</a>
+    <a href="reglamento.html">Reglamento</a>
+    <a href="infracciones.html">Infracciones</a>
+    <a href="galeria.html">Galería</a>
+    <a href="cuestionario.html">Cuestionario</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <h1>Infracciones viales</h1>
+  <p>Identifica conductas de riesgo, conoce sus consecuencias y aprende alternativas responsables.</p>
+</section>
+
+<div class="filtros">
+  <input type="search" id="buscar"
+    placeholder="Buscar infracción..."
+    aria-label="Buscar infracciones">
+
+  <button class="activo" data-cat="Todas">Todas</button>
+  <button data-cat="Leve">Ejemplos leves</button>
+  <button data-cat="Grave">Ejemplos graves</button>
+  <button data-cat="Muy grave">Ejemplos muy graves</button>
+</div>
+
+<p id="contador" aria-live="polite"></p>
+
+<section class="grid" id="tarjetas"></section>
+
+<section class="detalle" id="detalle">
+  <h2>Ficha informativa</h2>
+  <p>Selecciona una tarjeta para ver sus detalles aquí.</p>
+  <div id="info"></div>
+</section>
+
+<div class="nota">
+  <strong>Aviso educativo:</strong> las categorías de esta página son ilustrativas.
+  La clasificación jurídica y el importe de una multa dependen de la normativa,
+  la jurisdicción y las circunstancias. No utilices estos ejemplos como tarifas oficiales.
+</div>
+
+</main>
+
+<footer>
+  <p><strong>CECyTO Vial</strong> · Educación vial</p>
+  <p><a href="index.html">Volver al inicio</a></p>
+</footer>
+
+<script>
+const infracciones=[
+{
+  id:1,
+  nombre:"No utilizar cinturón de seguridad",
+  categoria:"Grave",
+  riesgo:"Puede aumentar el riesgo de lesiones durante una colisión.",
+  prevencion:"Abrocha el cinturón antes de iniciar el viaje y verifica que los ocupantes lo utilicen.",
+  multa:"No especificada"
+},
+{
+  id:2,
+  nombre:"Usar el celular al conducir",
+  categoria:"Grave",
+  riesgo:"Distrae la atención y reduce la capacidad de reaccionar a tiempo.",
+  prevencion:"Configura tu ruta antes de arrancar y detente en un lugar seguro si necesitas usar el teléfono.",
+  multa:"No especificada"
+},
+{
+  id:3,
+  nombre:"Conducir bajo efectos del alcohol",
+  categoria:"Muy grave",
+  riesgo:"Afecta los reflejos, el juicio y la coordinación.",
+  prevencion:"No conduzcas. Utiliza transporte seguro o designa a una persona que no haya consumido alcohol.",
+  multa:"No especificada"
+},
+{
+  id:4,
+  nombre:"No respetar un semáforo",
+  categoria:"Grave",
+  riesgo:"Puede provocar colisiones y poner en peligro a peatones y otros conductores.",
+  prevencion:"Observa el semáforo, las señales y las indicaciones de los agentes.",
+  multa:"No especificada"
+},
+{
+  id:5,
+  nombre:"Estacionarse en un lugar prohibido",
+  categoria:"Leve",
+  riesgo:"Puede obstruir la circulación, las rampas o la visibilidad.",
+  prevencion:"Busca un espacio autorizado y verifica las señales del lugar.",
+  multa:"No especificada"
+},
+{
+  id:6,
+  nombre:"Circular sin casco adecuado en motocicleta",
+  categoria:"Grave",
+  riesgo:"Incrementa la exposición a lesiones en caso de caída o colisión.",
+  prevencion:"Utiliza un casco adecuado, bien ajustado y abrochado, conforme a la normativa aplicable.",
+  multa:"No especificada"
+},
+{
+  id:7,
+  nombre:"Exceder el límite de velocidad",
+  categoria:"Muy grave",
+  riesgo:"Reduce el tiempo de reacción y aumenta la gravedad potencial de un choque.",
+  prevencion:"Respeta los límites señalados y adapta la velocidad a las condiciones de la vía.",
+  multa:"No especificada"
+},
+{
+  id:8,
+  nombre:"No ceder el paso cuando corresponde",
+  categoria:"Grave",
+  riesgo:"Puede poner en peligro a peatones, ciclistas y otros usuarios de la vía.",
+  prevencion:"Observa los cruces, señales y reglas de prioridad antes de avanzar.",
+  multa:"No especificada"
+}
+];
+
+let categoria="Todas";
+
+function escapar(texto){
+  return String(texto).replace(/[&<>"']/g,caracter=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[caracter]));
+}
+
+function renderizar(){
+  const texto=document.getElementById("buscar")
+    .value.toLowerCase().trim();
+
+  const datos=infracciones.filter(i=>
+    (categoria==="Todas"||i.categoria===categoria)&&
+    (i.nombre+" "+i.categoria+" "+i.riesgo+" "+i.prevencion)
+      .toLowerCase().includes(texto)
+  );
+
+  document.getElementById("contador").textContent=
+    datos.length+" resultado(s).";
+
+  const contenedor=document.getElementById("tarjetas");
+
+  if(!datos.length){
+    contenedor.innerHTML="<p>No se encontraron infracciones.</p>";
+    return;
+  }
+
+  contenedor.innerHTML=datos.map(i=>`
+    <article class="card">
+      <span class="etiqueta">
+        ${escapar(i.categoria)} · Ejemplo educativo
+      </span>
+      <h3>${escapar(i.nombre)}</h3>
+      <p>${escapar(i.riesgo)}</p>
+      <button type="button" data-detalle="${i.id}">
+        Ver detalles
+      </button>
+    </article>
+  `).join("");
+
+  contenedor.querySelectorAll("[data-detalle]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      mostrarDetalle(Number(b.dataset.detalle));
+    });
+  });
+}
+
+function mostrarDetalle(id){
+  const i=infracciones.find(x=>x.id===id);
+  if(!i)return;
+
+  document.getElementById("info").innerHTML=`
+    <h3>${escapar(i.nombre)}</h3>
+    <p><strong>Clasificación ilustrativa:</strong> ${escapar(i.categoria)}</p>
+    <p><strong>Riesgo:</strong> ${escapar(i.riesgo)}</p>
+    <p><strong>Prevención:</strong> ${escapar(i.prevencion)}</p>
+    <p><strong>Importe oficial:</strong> ${escapar(i.multa)}</p>
+    <p>Consulta a la autoridad competente para verificar la sanción aplicable.</p>
+  `;
+
+  document.getElementById("detalle")
+    .scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+document.getElementById("buscar")
+  .addEventListener("input",renderizar);
+
+document.querySelectorAll("[data-cat]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    categoria=b.dataset.cat;
+
+    document.querySelectorAll("[data-cat]")
+      .forEach(x=>x.classList.remove("activo"));
+
+    b.classList.add("activo");
+    renderizar();
+  });
+});
+
+renderizar();
+</script>
+
+</body>
+</html>

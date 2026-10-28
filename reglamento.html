@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101f32">
+  <meta name="description" content="Consulta el reglamento vial educativo de CECyTO Vial y aprende sobre las normas de tránsito y seguridad vial.">
+
+  <title>CECyTO Vial | Reglamento vial</title>
+
+  <style>
+    :root {
+      --azul: #087fce;
+      --azul-oscuro: #003b75;
+      --marino: #101f32;
+      --turquesa: #40e0d0;
+      --celeste: #a6e5ff;
+      --fondo: #f2f7fc;
+      --blanco: #ffffff;
+      --texto: #263747;
+      --borde: #d9e6f1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 95px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    /* BARRA DE NAVEGACIÓN */
+
+    .barra-superior {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 76px;
+      padding: 10px 5%;
+      background: var(--marino);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 3px 15px #00000025;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo-imagen {
+      width: 53px;
+      height: 53px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: var(--marino);
+      border: 1px solid #40e0d066;
+    }
+
+    .marca-texto {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .marca-texto span,
+    .logo-pie span {
+      color: var(--turquesa);
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .menu a {
+      padding: 10px;
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 7px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible,
+    .menu a[aria-current="page"] {
+      background: #ffffff20;
+      color: var(--turquesa);
+    }
+
+    .boton-menu {
+      display: none;
+      padding: 8px 12px;
+      border: 1px solid #ffffff55;
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    /* PORTADA CON IMAGEN DE FONDO */
+
+    .portada {
+      padding: 75px 25px;
+      color: white;
+      background:
+        linear-gradient(
+          110deg,
+          rgba(7, 24, 44, 0.91),
+          rgba(0, 75, 145, 0.76)
+        ),
+        url("imagenes/portada.jpg") center/cover no-repeat;
+      background-color: var(--azul-oscuro);
+      border-bottom: 4px solid var(--turquesa);
+    }
+
+    .portada-interior {
+      width: min(1100px, 100%);
+      margin: auto;
+    }
+
+    .etiqueta-portada {
+      margin-bottom: 12px;
+      color: var(--turquesa);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .portada h1 {
+      margin-bottom: 16px;
+      color: white;
+      font-size: clamp(36px, 6vw, 54px);
+      line-height: 1.15;
+    }
+
+    .portada p:last-child {
+      max-width: 760px;
+      font-size: 17px;
+      color: #edf7ff;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+
+    main {
+      width: min(1100px, 100%);
+      margin: auto;
+      padding: 50px 22px 60px;
+    }
+
+    .encabezado-seccion {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .subtitulo {
+      margin-bottom: 7px;
+      color: var(--azul);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .encabezado-seccion h2 {
+      margin-bottom: 10px;
+      color: var(--azul-oscuro);
+      font-size: clamp(27px, 4vw, 36px);
+    }
+
+    .encabezado-seccion p {
+      color: #526578;
+    }
+
+    /* BUSCADOR Y FILTROS */
+
+    .panel-filtros {
+      margin-bottom: 25px;
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+      box-shadow: 0 5px 20px #173c5b0b;
+    }
+
+    .panel-filtros label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--azul-oscuro);
+      font-weight: bold;
+    }
+
+    .busqueda {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="search"] {
+      flex: 1;
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid #b9cbd8;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    input[type="search"]:focus {
+      outline: 3px solid #087fce25;
+      border-color: var(--azul);
+    }
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--marino);
+      color: white;
+      font: inherit;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .boton:hover {
+      background: var(--azul);
+      transform: translateY(-1px);
+    }
+
+    .categorias {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 17px;
+    }
+
+    .filtro {
+      padding: 9px 13px;
+      border: 1px solid #cbdbe8;
+      border-radius: 30px;
+      background: #f3f8fc;
+      color: var(--azul-oscuro);
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .filtro:hover,
+    .filtro.activo {
+      background: var(--azul-oscuro);
+      color: white;
+      border-color: var(--azul-oscuro);
+    }
+
+    #contador {
+      margin: 18px 0;
+      color: #526578;
+      font-size: 14px;
+    }
+
+    /* ARTÍCULOS EDUCATIVOS */
+
+    .lista {
+      display: grid;
+      gap: 14px;
+    }
+
+    .articulo {
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px #173c5b08;
+    }
+
+    .articulo summary {
+      position: relative;
+      padding: 20px 48px 20px 20px;
+      color: var(--azul-oscuro);
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .articulo summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .articulo summary::after {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      color: var(--azul);
+      font-size: 25px;
+    }
+
+    .articulo[open] summary::after {
+      content: "−";
+    }
+
+    .articulo summary:hover {
+      background: #f1f8fd;
+    }
+
+    .contenido-articulo {
+      padding: 0 20px 22px;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      margin: 15px 0 10px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      background: #dff8f4;
+      color: #006b66;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .contenido-articulo p {
+      margin-bottom: 10px;
+    }
+
+    .contenido-articulo ul {
+      margin: 8px 0 12px 22px;
+    }
+
+    .sin-resultados {
+      padding: 25px;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    /* BLOQUE DE NORMATIVA OFICIAL */
+
+    .normativa {
+      margin-top: 45px;
+      padding: 27px;
+      background: linear-gradient(120deg, #e3f4ff, #e5fcfa);
+      border: 1px solid #cce8f5;
+      border-radius: 15px;
+    }
+
+    .normativa h2 {
+      margin-bottom: 12px;
+      color: var(--azul-oscuro);
+      font-size: 25px;
+    }
+
+    .normativa p {
+      margin-bottom: 13px;
+    }
+
+    .fuentes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .fuente {
+      padding: 18px;
+      background: white;
+      border: 1px solid #d3e7f2;
+      border-radius: 10px;
+    }
+
+    .fuente h3 {
+      margin-bottom: 8px;
+      color: var(--azul-oscuro);
+      font-size: 17px;
+    }
+
+    .fuente a {
+      display: inline-block;
+      margin-top: 9px;
+      color: #006fba;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .aviso {
+      margin-top: 22px;
+      padding: 17px;
+      background: #fff8e6;
+      border-left: 4px solid #e3aa27;
+      border-radius: 8px;
+    }
+
+    /* PIE DE PÁGINA */
+
+    footer {
+      padding: 32px 20px;
+      background: #0b1726;
+      color: #e8f1fa;
+      text-align: center;
+    }
+
+    .logo-pie {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .logo-pie img {
+      width: 43px;
+      height: 43px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .logo-pie strong {
+      font-size: 20px;
+    }
+
+    .enlaces-pie {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 17px;
+      margin: 18px 0;
+    }
+
+    .enlaces-pie a {
+      color: var(--celeste);
+      text-decoration: none;
+    }
+
+    .enlaces-pie a:hover {
+      text-decoration: underline;
+    }
+
+    .derechos {
+      margin-top: 15px;
+      color: #b9c7d6;
+      font-size: 13px;
+    }
+
+    /* CELULAR Y TABLET */
+
+    @media (max-width: 1050px) {
+      .boton-menu {
+        display: block;
+      }
+
+      .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 12px 5% 18px;
+        background: var(--marino);
+        border-top: 1px solid #ffffff20;
+        box-shadow: 0 10px 15px #00000020;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .menu.abierto {
+        display: flex;
+      }
+
+      .menu a {
+        padding: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .barra-superior {
+        padding: 10px 4%;
+        gap: 8px;
+      }
+
+      .logo-imagen {
+        width: 45px;
+        height: 45px;
+      }
+
+      .marca-texto {
+        font-size: 19px;
+      }
+
+      .portada {
+        padding: 50px 20px;
+      }
+
+      main {
+        padding: 35px 15px 45px;
+      }
+
+      .busqueda {
+        flex-direction: column;
+      }
+
+      .busqueda .boton {
+        width: 100%;
+      }
+
+      .fuentes {
+        grid-template-columns: 1fr;
+      }
+
+      .normativa {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BARRA SUPERIOR CON LOGO -->
+  <header class="barra-superior">
+
+    <a class="marca" href="index.html" aria-label="CECyTO Vial, inicio">
+      <img
+        class="logo-imagen"
+        src="logo cecyto.jpeg"
+        alt="Logo de CECyTO Vial"
+      >
+
+      <span class="marca-texto">
+        CECyTO <span>Vial</span>
+      </span>
+    </a>
+
+    <button
+      class="boton-menu"
+      id="botonMenu"
+      type="button"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="menuPrincipal"
+    >
+      ☰
+    </button>
+
+    <nav class="menu" id="menuPrincipal" aria-label="Menú principal">
+      <a href="index.html">Inicio</a>
+      <a href="senales.html">Señales</a>
+      <a href="reglamento.html" aria-current="page">Reglamento</a>
+      <a href="infracciones.html">Infracciones</a>
+      <a href="galeria.html">Galería</a>
+      <a href="cuestionario.html">Cuestionario</a>
+      <a href="chatbot.html">Chatbot</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+  </header>
+
+  <!-- PORTADA -->
+  <section class="portada">
+    <div class="portada-interior">
+
+      <p class="etiqueta-portada">Educación y seguridad vial</p>
+
+      <h1>Reglamento vial</h1>
+
+      <p>
+        Conoce las reglas de circulación, las responsabilidades de los
+        usuarios de la vía pública y las acciones que ayudan a prevenir
+        accidentes. Busca un tema o selecciona una categoría.
+      </p>
+
+    </div>
+  </section>
+
+  <main>
+
+    <section>
+      <div class="encabezado-seccion">
+        <p class="subtitulo">Aprende a circular con responsabilidad</p>
+
+        <h2>Guía de reglamento vial</h2>
+
+        <p>
+          Selecciona cada tema para conocer las recomendaciones y
+          consultar las fuentes oficiales de tu entidad.
+        </p>
+      </div>
+
+      <!-- BUSCADOR Y FILTROS -->
+      <div class="panel-filtros">
+
+        <label for="buscar">Buscar dentro del reglamento educativo</label>
+
+        <div class="busqueda">
+          <input
+            type="search"
+            id="buscar"
+            placeholder="Ej. cinturón, peatones, semáforo..."
+            aria-label="Buscar temas del reglamento vial"
+          >
+
+          <button class="boton" id="limpiar" type="button">
+            Limpiar búsqueda
+          </button>
+        </div>
+
+        <div class="categorias" aria-label="Filtrar por categoría">
+          <button class="filtro activo" type="button" data-cat="Todos" aria-pressed="true">Todos</button>
+          <button class="filtro" type="button" data-cat="Conductores" aria-pressed="false">Conductores</button>
+          <button class="filtro" type="button" data-cat="Peatones" aria-pressed="false">Peatones</button>
+          <button class="filtro" type="button" data-cat="Motociclistas" aria-pressed="false">Motociclistas</button>
+          <button class="filtro" type="button" data-cat="Señalización" aria-pressed="false">Señalización</button>
+          <button class="filtro" type="button" data-cat="Seguridad" aria-pressed="false">Seguridad</button>
+          <button class="filtro" type="button" data-cat="Vehículos" aria-pressed="false">Vehículos</button>
+        </div>
+
+      </div>
+
+      <p id="contador" aria-live="polite"></p>
+
+      <section class="lista" id="lista" aria-label="Temas del reglamento vial">
+      </section>
+
+    </section>
+
+    <!-- ENLACES A LA NORMATIVA OFICIAL -->
+    <section class="normativa">
+
+      <h2>Consulta el reglamento oficial</h2>
+
+      <p>
+        Esta página es una guía educativa. Para conocer los artículos
+        legales vigentes, las obligaciones específicas y las sanciones,
+        consulta la normativa publicada por las autoridades.
+      </p>
+
+      <div class="fuentes">
+
+        <article class="fuente">
+          <h3>Estado de México</h3>
+
+          <p>
+            Consulta el Reglamento de Tránsito publicado en el portal
+            oficial de legislación del Estado de México.
+          </p>
+
+          <a
+            href="https://legislacion.edomex.gob.mx/sites/legislacion.edomex.gob.mx/files/files/pdf/rgl/vig/rglvig079.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Consultar reglamento oficial ↗
+          </a>
+        </article>
+
+        <article class="fuente">
+          <h3>Estado de Veracruz</h3>
+
+          <p>
+            Accede al portal del Gobierno de Veracruz para consultar
+            la información y el documento de tránsito disponible.
+          </p>
+
+          <a
+            href="https://www.veracruz.gob.mx/reglamentodetransito/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Consultar portal oficial ↗
+          </a>
+        </article>
+
+      </div>
+
+      <div class="aviso">
+        <strong>Importante:</strong>
+        las disposiciones pueden variar según la entidad, el municipio,
+        el tipo de vía y las reformas vigentes. Los textos de esta guía
+        son explicaciones educativas, no transcripciones literales de la ley.
+        Verifica siempre la normativa que corresponda a tu localidad.
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+
+    <div class="logo-pie">
+      <img
+        src="logo cecyto.jpeg"
+        alt="Logo de CECyTO Vial"
+        loading="lazy"
+      >
+
+      <strong>CECyTO <span>Vial</span></strong>
+    </div>
+
+    <p>Proyecto educativo de seguridad vial.</p>
+    <p>Aprender las reglas también salva vidas.</p>
+
+    <nav class="enlaces-pie" aria-label="Enlaces del pie de página">
+      <a href="index.html">Inicio</a>
+      <a href="senales.html">Señales</a>
+      <a href="galeria.html">Galería</a>
+      <a href="cuestionario.html">Cuestionario</a>
+      <a href="chatbot.html">Chatbot</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <p class="derechos">
+      © 2026 CECyTO Vial · Material educativo.
+    </p>
+
+  </footer>
+
+  <script>
+    // MENÚ PARA CELULARES
+    const botonMenu = document.getElementById("botonMenu");
+    const menuPrincipal = document.getElementById("menuPrincipal");
+
+    botonMenu.addEventListener("click", function () {
+      const abierto = menuPrincipal.classList.toggle("abierto");
+
+      botonMenu.setAttribute("aria-expanded", String(abierto));
+      botonMenu.setAttribute(
+        "aria-label",
+        abierto ? "Cerrar menú de navegación" : "Abrir menú de navegación"
+      );
+
+      botonMenu.textContent = abierto ? "✕" : "☰";
+    });
+
+    menuPrincipal.querySelectorAll("a").forEach(function (enlace) {
+      enlace.addEventListener("click", function () {
+        menuPrincipal.classList.remove("abierto");
+        botonMenu.setAttribute("aria-expanded", "false");
+        botonMenu.setAttribute("aria-label", "Abrir menú de navegación");
+        botonMenu.textContent = "☰";
+      });
+    });
+
+    // CONTENIDO EDUCATIVO
+    // Estos textos son explicaciones generales, no artículos legales literales.
+
+    const articulos = [
+  {
+    titulo: "1. Responsabilidad de los conductores",
+    cat: "Conductores",
+    texto: "Conduce con precaución y respeta las señales.",
+    puntos: ["Mantén la atención en la vía.", "Respeta las indicaciones de tránsito."]
+  },
+  {
+    titulo: "2. Licencia y documentación",
+    cat: "Conductores",
+    texto: "Verifica que tus documentos estén vigentes.",
+    puntos: ["Porta la licencia correspondiente.", "Consulta los requisitos de tu localidad."]
+  },
+  {
+    titulo: "3. Semáforos y señales",
+    cat: "Señalización",
+    texto: "Las señales ayudan a organizar la circulación.",
+    puntos: ["Respeta el semáforo.", "No bloquees cruces.", "Atiende a los agentes de tránsito."]
+  },
+  {
+    titulo: "4. Límites de velocidad",
+    cat: "Conductores",
+    texto: "Adapta la velocidad a la vía y sus condiciones.",
+    puntos: ["Respeta los límites señalados.", "Reduce la velocidad en zonas escolares."]
+  },
+  {
+    titulo: "5. Cinturón de seguridad",
+    cat: "Seguridad",
+    texto: "El cinturón ayuda a reducir lesiones en accidentes.",
+    puntos: ["Abróchalo antes de viajar.", "Ajústalo correctamente."]
+  },
+  {
+    titulo: "6. Uso del celular",
+    cat: "Conductores",
+    texto: "Evita distracciones al conducir.",
+    puntos: ["No escribas mensajes.", "Detente en un lugar seguro para usar el teléfono."]
+  },
+  {
+    titulo: "7. Seguridad peatonal",
+    cat: "Peatones",
+    texto: "Cruza por lugares seguros y presta atención.",
+    puntos: ["Usa cruces peatonales.", "Respeta los semáforos."]
+  },
+  {
+    titulo: "8. Seguridad en motocicleta",
+    cat: "Motociclistas",
+    texto: "Utiliza protección y conduce con precaución.",
+    puntos: ["Usa casco.", "Respeta las señales."]
+  },
+  {
+    titulo: "9. Distancia de seguridad",
+    cat: "Seguridad",
+    texto: "Mantén suficiente espacio con el vehículo de adelante.",
+    puntos: ["Evita seguir demasiado cerca.", "Aumenta la distancia cuando llueva."]
+  },
+  {
+    titulo: "10. Mantenimiento del vehículo",
+    cat: "Vehículos",
+    texto: "Revisa las condiciones del vehículo antes de circular.",
+    puntos: ["Comprueba los frenos.", "Revisa neumáticos y luces."]
+  }
+];
+
+const lista = document.getElementById("lista");
+const buscar = document.getElementById("buscar");
+const contador = document.getElementById("contador");
+const filtros = document.querySelectorAll(".filtro");
+const limpiar = document.getElementById("limpiar");
+
+let categoria = "Todos";
+
+function mostrarArticulos() {
+  const palabra = buscar.value.toLowerCase().trim();
+
+  const encontrados = articulos.filter(a => {
+    const texto = (a.titulo + " " + a.cat + " " + a.texto + " " + a.puntos.join(" ")).toLowerCase();
+    return (categoria === "Todos" || a.cat === categoria) && texto.includes(palabra);
+  });
+
+  lista.innerHTML = encontrados.map(a => `
+    <details class="articulo">
+      <summary>${a.titulo}</summary>
+      <div class="contenido-articulo">
+        <span class="etiqueta">${a.cat}</span>
+        <p>${a.texto}</p>
+        <ul>${a.puntos.map(p => `<li>${p}</li>`).join("")}</ul>
+      </div>
+    </details>
+  `).join("");
+
+  contador.textContent = encontrados.length + " temas encontrados";
+  
+  if (encontrados.length === 0) {
+    lista.innerHTML = '<p class="sin-resultados">No se encontraron temas.</p>';
+  }
+}
+
+filtros.forEach(boton => {
+  boton.addEventListener("click", () => {
+    categoria = boton.dataset.cat;
+    filtros.forEach(b => {
+      b.classList.toggle("activo", b === boton);
+      b.setAttribute("aria-pressed", String(b === boton));
+    });
+    mostrarArticulos();
+  });
+});
+
+buscar.addEventListener("input", mostrarArticulos);
+
+limpiar.addEventListener("click", () => {
+  buscar.value = "";
+  categoria = "Todos";
+  filtros.forEach(b => {
+    const activo = b.dataset.cat === "Todos";
+    b.classList.toggle("activo", activo);
+    b.setAttribute("aria-pressed", String(activo));
+  });
+  mostrarArticulos();
+});
+
+mostrarArticulos();
+</script>
+</body>
+</html>

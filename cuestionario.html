@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CECyTO Vial | Cuestionario</title>
+
+<style>
+:root{
+  --azul:#007FFF;
+  --marino:#00308F;
+  --oscuro:#102A43;
+  --turquesa:#40E0D0;
+  --fondo:#F1F7FC;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fondo);
+  color:#203040;
+  line-height:1.6;
+}
+
+header{
+  background:var(--oscuro);
+  color:white;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* LOGO CECyTO VIAL */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+}
+
+.logo img{
+  width:53px;
+  height:53px;
+  object-fit:contain;
+  border-radius:50%;
+  background:white;
+  flex-shrink:0;
+}
+
+.logo-texto{
+  color:white;
+}
+
+.logo-texto span{
+  color:var(--turquesa);
+}
+
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  padding:8px;
+  border-radius:7px;
+}
+
+nav a:hover{
+  background:#ffffff25;
+}
+
+main{
+  max-width:850px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+h1,h2{
+  color:var(--marino);
+}
+
+.hero{
+  padding:28px;
+  background:linear-gradient(120deg,#00308F,#007FFF);
+  color:white;
+  border-radius:15px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  color:white;
+  font-size:clamp(30px,5vw,42px);
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border:1px solid #d8e6f0;
+  border-radius:15px;
+}
+
+.progreso{
+  height:10px;
+  background:#dce8ef;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0 20px;
+}
+
+#barra{
+  height:100%;
+  width:0;
+  background:#008080;
+  transition:width .2s;
+}
+
+.opcion{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:#f4f9fc;
+  border:1px solid #d8e6f0;
+  border-radius:9px;
+  padding:13px;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.opcion:hover{
+  background:#e5f6f4;
+}
+
+.opcion input{
+  margin-top:5px;
+  accent-color:var(--marino);
+}
+
+button,.boton{
+  display:inline-block;
+  background:var(--marino);
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:12px 17px;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:none;
+  margin:8px 5px 0 0;
+}
+
+button:hover,.boton:hover{
+  background:var(--azul);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+#feedback{
+  margin-top:16px;
+  padding:14px;
+  background:#e2f5f0;
+  border-radius:8px;
+}
+
+#feedback.error{
+  background:#fff0e8;
+}
+
+footer{
+  text-align:center;
+  background:var(--oscuro);
+  color:white;
+  padding:25px;
+}
+
+footer a{
+  color:var(--turquesa);
+}
+
+@media(max-width:600px){
+  header{justify-content:center}
+  .logo{justify-content:center}
+  nav{justify-content:center}
+  main{padding:25px 14px}
+  .card{padding:18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <img src="logo cecyto.jpeg" alt="Logo de CECyTO Vial">
+    <span class="logo-texto">CECyTO <span>Vial</span></span>
+  </a>
+
+  <nav aria-label="Menú principal">
+    <a href="index.html">Inicio</a>
+    <a href="senales.html">Señales</a>
+    <a href="reglamento.html">Reglamento</a>
+    <a href="infracciones.html">Infracciones</a>
+    <a href="galeria.html">Galería</a>
+    <a href="cuestionario.html">Cuestionario</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <p>APRENDE Y PONTE A PRUEBA</p>
+  <h1>Cuestionario de seguridad vial</h1>
+  <p>Responde las preguntas, comprueba tus respuestas y consulta tu puntuación al finalizar.</p>
+</section>
+
+<section class="card">
+  <p id="contador">Pregunta 1 de 8</p>
+
+  <div class="progreso">
+    <div id="barra"></div>
+  </div>
+
+  <h2 id="pregunta"></h2>
+
+  <form id="formulario">
+    <div id="opciones"></div>
+    <button type="submit" id="comprobar">
+      Comprobar respuesta
+    </button>
+  </form>
+
+  <div id="feedback" role="status" hidden></div>
+
+  <button id="siguiente" type="button" hidden>
+    Siguiente pregunta →
+  </button>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>CECyTO Vial</strong> · Evaluación educativa</p>
+  <p><a href="index.html">Volver al inicio</a></p>
+</footer>
+
+<script>
+const preguntas=[
+ {
+  p:"¿Qué debes hacer antes de cambiar de carril?",
+  o:[
+    "Moverte inmediatamente",
+    "Revisar espejos, señalizar y comprobar que es seguro",
+    "Acelerar para pasar primero"
+  ],
+  c:1,
+  e:"Verifica tu entorno, señaliza y cambia de carril solo cuando sea seguro."
+ },
+ {
+  p:"¿Qué indica una señal de ALTO?",
+  o:[
+    "Detener completamente la marcha",
+    "Acelerar",
+    "Estacionarse siempre"
+  ],
+  c:0,
+  e:"Debes detenerte y continuar cuando sea seguro y esté permitido."
+ },
+ {
+  p:"¿Para qué sirve el cinturón de seguridad?",
+  o:[
+    "Solo para evitar multas",
+    "Ayuda a reducir el riesgo de lesiones en un choque",
+    "Solo se utiliza en carretera"
+  ],
+  c:1,
+  e:"El cinturón ayuda a proteger a los ocupantes del vehículo."
+ },
+ {
+  p:"¿Qué debes hacer si has consumido alcohol?",
+  o:[
+    "Conducir despacio",
+    "Abrir las ventanas",
+    "No conducir y buscar transporte seguro"
+  ],
+  c:2,
+  e:"El alcohol afecta la capacidad para conducir. Busca una alternativa segura."
+ },
+ {
+  p:"¿Qué debes hacer al acercarte a un cruce peatonal?",
+  o:[
+    "Prestar atención y respetar el paso conforme a las reglas",
+    "Acelerar",
+    "Usar el teléfono"
+  ],
+  c:0,
+  e:"Mantente alerta y respeta las reglas de prioridad peatonal."
+ },
+ {
+  p:"¿Qué debes hacer ante una señal de límite de velocidad?",
+  o:[
+    "Ignorarla si la calle está vacía",
+    "Respetar el límite aplicable",
+    "Conducir siempre al máximo que permita el vehículo"
+  ],
+  c:1,
+  e:"Respeta el límite indicado y adapta tu velocidad a las condiciones."
+ },
+ {
+  p:"¿Qué equipo debe utilizar un motociclista para protegerse?",
+  o:[
+    "Solo una gorra",
+    "Un casco adecuado y correctamente abrochado",
+    "Audífonos"
+  ],
+  c:1,
+  e:"El casco adecuado y bien ajustado ayuda a reducir el riesgo de lesiones."
+ },
+ {
+  p:"¿Qué es lo correcto si necesitas leer un mensaje mientras conduces?",
+  o:[
+    "Leerlo rápidamente",
+    "Detenerte en un lugar seguro antes de usar el teléfono",
+    "Leerlo en un semáforo sin importar las condiciones"
+  ],
+  c:1,
+  e:"Evita manipular el teléfono al conducir. Detente de forma segura antes de utilizarlo."
+ }
+];
+
+let indice=0;
+let puntos=0;
+let respondida=false;
+
+const formulario=document.getElementById("formulario");
+const feedback=document.getElementById("feedback");
+const botonSiguiente=document.getElementById("siguiente");
+
+function mostrar(){
+  const q=preguntas[indice];
+
+  document.getElementById("contador").textContent=
+    "Pregunta "+(indice+1)+" de "+preguntas.length;
+
+  document.getElementById("barra").style.width=
+    (indice/preguntas.length*100)+"%";
+
+  document.getElementById("pregunta").textContent=q.p;
+
+  document.getElementById("opciones").innerHTML=q.o.map((op,i)=>`
+    <label class="opcion">
+      <input type="radio" name="respuesta" value="${i}">
+      <span>${String.fromCharCode(65+i)}. ${op}</span>
+    </label>
+  `).join("");
+
+  feedback.hidden=true;
+  feedback.className="";
+  botonSiguiente.hidden=true;
+  document.getElementById("comprobar").hidden=false;
+  respondida=false;
+}
+
+formulario.addEventListener("submit",e=>{
+  e.preventDefault();
+
+  if(respondida)return;
+
+  const seleccion=document.querySelector(
+    'input[name="respuesta"]:checked'
+  );
+
+  if(!seleccion){
+    feedback.hidden=false;
+    feedback.className="error";
+    feedback.textContent=
+      "Selecciona una respuesta antes de continuar.";
+    return;
+  }
+
+  const q=preguntas[indice];
+  const correcta=Number(seleccion.value)===q.c;
+
+  if(correcta)puntos++;
+
+  feedback.hidden=false;
+  feedback.className=correcta?"":"error";
+  feedback.textContent=
+    (correcta?"¡Correcto! ":"Respuesta incorrecta. ")+q.e;
+
+  document.querySelectorAll(
+    'input[name="respuesta"]'
+  ).forEach(x=>x.disabled=true);
+
+  document.getElementById("comprobar").hidden=true;
+  botonSiguiente.hidden=false;
+
+  botonSiguiente.textContent=
+    indice===preguntas.length-1
+      ?"Ver resultado →"
+      :"Siguiente pregunta →";
+
+  respondida=true;
+});
+
+botonSiguiente.addEventListener("click",()=>{
+  if(indice<preguntas.length-1){
+    indice++;
+    mostrar();
+  }else{
+    const porcentaje=Math.round(
+      puntos/preguntas.length*100
+    );
+
+    try{
+      localStorage.setItem("cecytoPuntaje",String(porcentaje));
+      localStorage.setItem("cecytoCorrectas",String(puntos));
+      localStorage.setItem("cecytoTotal",String(preguntas.length));
+    }catch(error){
+      alert("No fue posible guardar el resultado en este navegador.");
+    }
+
+    window.location.href="resultado.html";
+  }
+});
+
+mostrar();
+</script>
+
+</body>
+</html>

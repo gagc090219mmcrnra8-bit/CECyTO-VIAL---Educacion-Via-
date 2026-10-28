@@ -1,0 +1,255 @@
+:root {
+  --azure: #007FFF;
+  --star: #0077B8;
+  --steel: #4682B4;
+  --navy: #00308F;
+  --academy: #004F98;
+  --violet: #324AB2;
+  --turquoise: #40E0D0;
+  --tiffany: #0ABAB5;
+  --ink: #12243A;
+  --muted: #64758B;
+  --light: #F2F7FC;
+  --white: #FFFFFF;
+  --border: #DCE7F2;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+a { color: var(--azure); }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #07182B;
+  color: white;
+  padding: 14px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid var(--azure);
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.logo span { color: var(--turquoise); }
+
+nav {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 9px 11px;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+nav a:hover, nav a:focus {
+  background: var(--academy);
+}
+
+main {
+  max-width: 1200px;
+  width: 92%;
+  margin: auto;
+  padding: 40px 0 55px;
+}
+
+.hero {
+  min-height: 540px;
+  padding: 55px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background:
+    linear-gradient(135deg, rgba(0,30,70,.84),
+    rgba(0,127,255,.58)),
+    url("imagenes/portada-vial.jpg") center/cover no-repeat;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 5vw, 62px);
+  line-height: 1.12;
+  max-width: 950px;
+  margin: 12px 0;
+}
+
+.hero p {
+  max-width: 720px;
+  font-size: 18px;
+}
+
+.eyebrow {
+  color: var(--tiffany);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 15px auto 30px;
+}
+
+h1, h2, h3 { line-height: 1.25; }
+
+h2 { color: var(--academy); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 22px;
+  margin: 25px 0;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(0,40,90,.06);
+}
+
+.card h2, .card h3 { color: var(--academy); }
+
+.card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+  background: #DCEBFA;
+}
+
+.gallery-image { margin-bottom: 15px; }
+
+.btn {
+  display: inline-block;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  padding: 11px 17px;
+  margin: 5px 5px 5px 0;
+  font: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn-blue {
+  background: var(--azure);
+  color: white;
+}
+
+.btn-dark {
+  background: var(--navy);
+  color: white;
+}
+
+.btn-aqua {
+  background: var(--turquoise);
+  color: #08283A;
+}
+
+.btn-outline {
+  border-color: white;
+  color: white;
+  background: transparent;
+}
+
+.tag {
+  display: inline-block;
+  background: #E3F3FF;
+  color: var(--academy);
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin: 20px 0;
+}
+
+.notice {
+  background: #FFF5DF;
+  border-left: 5px solid #E7A63E;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 14px;
+  border: 1px solid #BDCDDC;
+  border-radius: 8px;
+  font: inherit;
+  color: var(--ink);
+  background: white;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+label { font-weight: 600; }
+
+footer {
+  text-align: center;
+  background: #07182B;
+  color: white;
+  padding: 28px 15px;
+}
+
+footer a { color: var(--turquoise); }
+
+footer p { margin: 5px; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 700px) {
+  header { justify-content: center; }
+  nav { justify-content: center; }
+  nav a { font-size: 12px; padding: 7px; }
+  main { width: 94%; padding-top: 25px; }
+  .hero { min-height: 450px; padding: 30px 18px; }
+  .card { padding: 17px; }
+}
